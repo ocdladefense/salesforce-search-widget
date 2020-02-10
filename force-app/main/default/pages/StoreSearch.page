@@ -1,0 +1,13 @@
+<apex:page applyHtmlTag="true" showHeader="true">
+    <apex:variable var="hostname" value="membertest.ocdla.org" />
+    <apex:variable var="path" value="sites/default/modules/search/assets" />
+    <html>
+        <head>
+            <title>Sample Search Widget</title>
+        </head>
+        <body>
+            <c:StoreSearch host="{!hostname}" path="{!path}" /> 
+            <label id="outputLabel">No Data Yet!</label>
+        </body>
+    </html>
+</apex:page>

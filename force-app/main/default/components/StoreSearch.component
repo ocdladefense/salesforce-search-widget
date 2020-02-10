@@ -1,0 +1,21 @@
+<apex:component layout="none" controller="StoreSearch">
+<apex:attribute name="host" required="false" type="String" default="localhost" description="Host where scripts and styles for the widget are located." />   
+<apex:attribute name="path" required="false" type="String" default="assets" description="Path to JavaScript and CSS files." />
+    <script src="//{!host}/{!path}/js/search.js">
+    </script>
+    <script src="//{!host}/{!path}/js/searchManager.js">
+    </script>
+    <script src="//{!host}/{!path}/js/searchLibrary.js">
+    </script>
+    <script src="//{!host}/{!path}/js/config.js">
+    </script>
+    <script src="//{!host}/{!path}/js/app.js">
+    </script>
+    <link rel="stylesheet" type="text/css" href="//{!host}/{!path}/css/styles.css" />      
+          <div id="searchWidget">
+            <!--- <button type="button">SEARCH</button> --->
+            <input id="searchInputBox" placeholder = "Search the store" />
+            <!--- <button type="button" onclick="clearResults();">CLEAR</button> --->
+            <!--- <label id="outputLabel" >No Data Yet!</label> --->
+        </div>   
+</apex:component>

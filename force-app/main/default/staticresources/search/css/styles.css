@@ -1,0 +1,11 @@
+#searchWidget{
+	max-height: 15%;
+	padding: 15px;
+	font-size: 14pt;
+ }
+ 
+ #eventList a {
+	 margin:5px;
+	 padding:8px;
+	 display: block;
+ }
