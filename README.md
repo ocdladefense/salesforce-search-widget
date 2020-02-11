@@ -3,8 +3,12 @@ A JavaScript-driven component to query a Salesforce Org's products and display t
 
 # Authors
 - Trevor Uehlin
+- Jack Brainard
 - Nicholas Glesmann
 - Patrick Behrens-Jungfer
+
+# Screenshots
+![Alt text](/force-app/main/default/staticresources/search/screenshot.png?raw=true "Search screenshot")
 
 # Installation
 1. Clone this repository into an SFDX project folder.
