@@ -35,3 +35,8 @@ $RECYCLE.BIN/
 .vscode
 
 SearchSettings.*
+
+# Ignore scratch org layouts for this repo
+#  and custom objects, too
+force-app/main/default/objects/
+force-app/main/default/layouts/
