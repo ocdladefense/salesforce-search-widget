@@ -33,3 +33,5 @@ $RECYCLE.BIN/
 
 # Ignore vscode
 .vscode
+
+SearchSettings.*
