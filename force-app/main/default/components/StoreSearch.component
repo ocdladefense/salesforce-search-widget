@@ -1,17 +1,16 @@
-<apex:component layout="none" controller="StoreSearch">
-<apex:attribute name="host" required="false" type="String" default="localhost" description="Host where scripts and styles for the widget are located." />   
-<apex:attribute name="path" required="false" type="String" default="assets" description="Path to JavaScript and CSS files." />
-    <script src="//{!host}/{!path}/js/search.js">
-    </script>
-    <script src="//{!host}/{!path}/js/searchManager.js">
-    </script>
-    <script src="//{!host}/{!path}/js/searchLibrary.js">
-    </script>
-    <script src="//{!host}/{!path}/js/config.js">
-    </script>
-    <script src="//{!host}/{!path}/js/app.js">
-    </script>
-    <link rel="stylesheet" type="text/css" href="//{!host}/{!path}/css/styles.css" />      
+<apex:component layout="none" controller="StoreSearch"> 
+
+    <!--- Three dashes for a Visualforce comment -->
+    
+    <apex:includeScript value="{!URLFOR($Resource.search,'/js/search.js')}" />    
+    <apex:includeScript value="{!URLFOR($Resource.search,'/js/searchManager.js')}" />    
+    <apex:includeScript value="{!URLFOR($Resource.search,'/js/searchLibrary.js')}" />    
+    <apex:includeScript value="{!URLFOR($Resource.search,'/js/config.js')}" />    
+    <apex:includeScript value="{!URLFOR($Resource.search,'/js/app.js')}" />
+    
+
+	<apex:stylesheet value="{!URLFOR($Resource.search,'/css/style.css')}" />      
+
           <div id="searchWidget">
             <!--- <button type="button">SEARCH</button> --->
             <input id="searchInputBox" placeholder = "Search the store" />

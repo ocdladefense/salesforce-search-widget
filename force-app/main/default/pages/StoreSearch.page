@@ -1,13 +1,17 @@
-<apex:page applyHtmlTag="true" showHeader="true">
-    <apex:variable var="hostname" value="membertest.ocdla.org" />
-    <apex:variable var="path" value="sites/default/modules/search/assets" />
-    <html>
-        <head>
-            <title>Sample Search Widget</title>
-        </head>
-        <body>
-            <c:StoreSearch host="{!hostname}" path="{!path}" /> 
+<apex:page applyHtmlTag="true" showHeader="true" cache="False" sidebar="True" standardStylesheets="True">
+
+
+<header style="width:100%; height:75px; background-color:#666; color:#fff;">
+    <h2>
+        Store Search: Example Visualforce Page
+    </h2>
+</header>
+    
+ <h2>
+     Here is the actual StoreSearch component:
+    </h2>
+            <c:StoreSearch /> 
             <label id="outputLabel">No Data Yet!</label>
-        </body>
-    </html>
+
+
 </apex:page>
