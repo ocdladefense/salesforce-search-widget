@@ -14,4 +14,4 @@ package.xml
 # Ignore settings
 # Salesforce Orgs differ on their available fields.
 # These settings will need to change.
-SearchSettings.cls
+SearchSettingsExample*
