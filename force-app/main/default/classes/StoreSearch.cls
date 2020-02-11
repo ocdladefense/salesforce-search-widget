@@ -21,7 +21,7 @@ public class StoreSearch
      * For scratch org development we need to return some sample records.
      */
     @RemoteAction
-    public static Map<String, List<SObject>> GetQueryResults(string[] searchTerms)
+    public static Map<String, List<SearchResult>> GetQueryResults(string[] searchTerms)
     {
         String searchKey, searchQuery;
         
@@ -40,10 +40,16 @@ public class StoreSearch
         
         products = Database.query(searchQuery);
         
-        results = toSearchResults(products);
+
+        
+        if(SearchSettings.USE_SAMPLE_DATA){
+            results = getSampleResults();
+        } else {
+            results = toSearchResults(products);
+        }
         
         // Return the results back to the client, keyed by the type of record.
-        return new Map<string, List<SObject>>{'Product2' => products};
+        return new Map<String, List<SearchResult>>{'Product2' => results};
     }
     
     
@@ -63,6 +69,25 @@ public class StoreSearch
     }
     
     
+    /**
+     * Generate some sample data in case we need it for testing.
+     */
+    public static List<SearchResult> getSampleResults(){
+        List<SearchResult> results = new List<SearchResult>();
+        
+        for(Integer i = 0; i<25; i++){
+            SearchResult r = new SearchResult();
+            r.Id = 'ABCD1234-'+i;
+            r.Name = 'My Sample Product - '+i;
+            r.Description = 'Sample Description - '+i;
+            r.UnitPrice = 125.00 + i;
+            
+            results.add(r);
+        }
+        
+        return results;
+    }
+    
     
     /**
      * Example of an inner class (SearchResult.)
@@ -70,7 +95,7 @@ public class StoreSearch
      */
     public class SearchResult {
         
-        public Id Id;
+        public String Id;
         
         public String Name;
         
@@ -84,5 +109,7 @@ public class StoreSearch
             this.Description = obj.Product2.Description;
             this.UnitPrice = obj.UnitPrice;
         }
+        
+        public SearchResult(){}
     }
 }
