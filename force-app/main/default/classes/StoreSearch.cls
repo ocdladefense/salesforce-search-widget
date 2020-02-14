@@ -43,8 +43,8 @@ public class StoreSearch
         // String searchQuery='select Name,id,description, from product2 where name like \'%'+searchKey+'%\' Limit 100';
         
         
-        searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, UnitPrice FROM PricebookEntry '+
-            'WHERE Product2.Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
+        searchQuery = 'SELECT Id, Name, Description FROM Product2 '+
+            'WHERE Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
         
         products = Database.query(searchQuery);
         
@@ -72,8 +72,8 @@ public class StoreSearch
         // String searchQuery='select Name,id,description, from product2 where name like \'%'+searchKey+'%\' Limit 100';
         
         
-        searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, UnitPrice FROM PricebookEntry '+
-            'WHERE Product2.Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
+        searchQuery = 'SELECT Id, Name, Description FROM Product2 '+
+            'WHERE Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
         
         products = Database.query(searchQuery);
         

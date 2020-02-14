@@ -8,6 +8,6 @@ var FilterPrototype = {
     }
 }
 var Filter = function(filterString) {
-    this.filter = filterString;
+    this.filter = filterString || null;
 };
 Filter.prototype = FilterPrototype;
