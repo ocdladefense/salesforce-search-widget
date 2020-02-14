@@ -21,8 +21,16 @@ public class StoreSearch
      * For scratch org development we need to return some sample records.
      */
     @RemoteAction
-    public static Map<String, List<SearchResult>> GetQueryResults(string[] searchTerms)
+    public static Map<String, List<SearchResult>> GetQueryResults(string[] searchTerms, string filter)
     {
+        if(filter == null) {
+            return QueryNoFilter(searchTerms);
+        } else {
+            return QueryWithFilter(searchTerms, filter);
+        }
+    }
+    
+    private static Map<String, List<SearchResult>> QueryNoFilter (string[] searchTerms) {
         String searchKey, searchQuery;
         
         List<SObject> products;
@@ -47,11 +55,38 @@ public class StoreSearch
         } else {
             results = toSearchResults(products);
         }
-        
-        // Return the results back to the client, keyed by the type of record.
+
         return new Map<String, List<SearchResult>>{'Product2' => results};
     }
-    
+
+    private static Map<String, List<SearchResult>> QueryWithFilter (string[] searchTerms, string filter) {
+        String searchKey, searchQuery;
+        
+        List<SObject> products;
+            
+		List<SearchResult> results;
+        
+        searchKey = String.join(searchTerms,' ');
+        
+        /** Previous query **/
+        // String searchQuery='select Name,id,description, from product2 where name like \'%'+searchKey+'%\' Limit 100';
+        
+        
+        searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, UnitPrice FROM PricebookEntry '+
+            'WHERE Product2.Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
+        
+        products = Database.query(searchQuery);
+        
+
+        
+        if(SearchSettings.USE_SAMPLE_DATA){
+            results = getSampleResults();
+        } else {
+            results = toSearchResults(products);
+        }
+
+        return new Map<String, List<SearchResult>>{'Product2' => results};
+    }
     
     /**
      * Perform any standardization required in the results.

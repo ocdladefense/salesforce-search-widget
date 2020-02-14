@@ -7,14 +7,30 @@
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/searchLibrary.js')}" />    
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/config.js')}" />    
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/app.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.search,'/js/filter.js')}" />
     
 
 	<apex:stylesheet value="{!URLFOR($Resource.search,'/css/style.css')}" />      
 
-          <div id="searchWidget">
-            <!--- <button type="button">SEARCH</button> --->
-            <input id="searchInputBox" placeholder = "Search the store" />
-            <!--- <button type="button" onclick="clearResults();">CLEAR</button> --->
-            <!--- <label id="outputLabel" >No Data Yet!</label> --->
-        </div>   
+    <div id="searchWidget" class="p-0 my-2">
+        <div class="form-inline">
+            <select name="families" id="families-select" class="form-control col-2">
+                <!--- A method to query all product families here -->
+                <option value="producttype1">Product Type 1</option>
+                <option value="producttype2">Product Type 2</option>
+                <option value="producttype3">Product Type 3</option>
+            </select>
+
+            <div class="col-md-4">
+                <div id="storeSearchBox" class="input-group">
+                    <input class="form-control py-2 border-right-0 border" placeholder="Search" id="searchInputBox"></input>
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-white"><i class="fas fa-search"></i></div>
+                    </span>
+                </div>
+            </div>
+
+            <!--- <input id="searchInputBox" class="form-control col-6" placeholder="Search the store" /> -->
+        </div>
+    </div>   
 </apex:component>

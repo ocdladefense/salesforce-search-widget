@@ -1,13 +1,21 @@
 var SearchManagerPrototype = 
 {
-    doSearch:function(search)
+    doSearch:function(search, filter)
     {
         console.log(search.getTerms());
         if(!(search.getTerms().length > 0)) return false;
 
-				this.searchHistory.push(search);
+		this.searchHistory.push(search);
         
-        var request = getSearchResults(search.getParameters()).then(function(json) {
+        var request = new Promise(function(resolve,reject) {
+            StoreSearch.GetQueryResults(search.getParameters(), filter.getFilter(), function(result, event){
+                if (event.status){ resolve(result); }
+                else { reject(result,event); }
+            },
+            {escape: true});
+        });
+        
+        request.then(function(json) {
         	console.log(json);
         	if(!json || json.length < 1) return [];
 					var parsedResults = renderHtml(json);
@@ -17,10 +25,11 @@ var SearchManagerPrototype =
             // this.resultsHistory.push(json);
         });
     },
-    execute:function(searchString)
+    execute:function(searchString, filterString)
     {
         var search = new Search(searchString);
-        this.doSearch(search);
+        var filter = new Filter(filterString);
+        this.doSearch(search, filter);
     },
 
     resultsHasHistory:function()

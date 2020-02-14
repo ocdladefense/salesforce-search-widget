@@ -10,10 +10,13 @@ function acceptUserInput(e)
 	//But also start the timer after every keystroke
 	//Any additional keystroke cancels the previous timer
 	var userInput = e.target.value;
+	var filterInput = function() {
+		return null;
+	}
 
 	function sendUserInputToSearchManager()
 	{
-		manager.execute(userInput);
+		manager.execute(userInput, filterInput);
 		console.log(userInput);
 	}
 	

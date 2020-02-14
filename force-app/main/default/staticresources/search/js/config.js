@@ -10,7 +10,7 @@
  {
 		var prodName = cResult.Name;
 		var prodId = cResult.Id;
-		var prodHtml="<a href='/"+prodId+"'>"+ prodName + "ID:"+prodId+"</a><br>";
+		var prodHtml="<br><a href='/"+prodId+"'>"+ prodName + "ID:"+prodId+"</a>";
 		
 		return prodHtml;
  };

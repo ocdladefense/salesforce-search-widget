@@ -34,22 +34,8 @@ function checkEvent(e){
 	return false;
 }
 	
-function getSearchResults(string) {
-	return new Promise(function(resolve,reject)
-	{
-		StoreSearch.GetQueryResults(string,function(result, event){
-
-		if (event.status)
-		{
-			resolve(result);
-		}
-		else
-		{
-			reject(result,event);
-		}
-		},
-		{escape: true});
-	});
+function getSearchResults(searchTerms, filter) {
+	
 }
 	
 function clearResults()

@@ -1,11 +1,29 @@
-#searchWidget{
-	max-height: 15%;
-	padding: 15px;
-	font-size: 14pt;
- }
- 
- #eventList a {
-	 margin:5px;
-	 padding:8px;
-	 display: block;
- }
+#eventList a {
+	margin:5px;
+	padding:8px;
+	display: block;
+}
+
+#outputLabel a {
+	font-size: 16px;
+	text-decoration: none;
+	color: #666;
+}
+
+/* hide the default bootstrap blue outline */
+.form-control:focus {
+    outline: 0 !important;
+    border-color: initial !important;
+    box-shadow: none !important;
+}
+
+#storeSearchBox:focus~.input-group-text {
+	outline: 0;
+	border-color: initial;
+	box-shadow: none;
+}
+
+.input-group-text {
+	border: 1px solid !important;
+	border-left: none;
+}
