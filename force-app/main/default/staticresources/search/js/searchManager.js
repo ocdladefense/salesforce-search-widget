@@ -1,7 +1,17 @@
+
 var SearchManagerPrototype = 
 {
-    doSearch:function(search, filter)
+    doSearch:function(params, filter)
     {
+
+        if(!(params instanceof Search)){
+            search = params.search;
+            filter = params.filter;
+        } else{
+            search = params;
+        }
+
+
         console.log(search.getTerms());
         if(!(search.getTerms().length > 0)) return false;
 
@@ -42,8 +52,12 @@ var SearchManagerPrototype =
         if(this.searchHistory[0] != "")
         return true;
     },
-    getSearchHistory:function(index)
+    getHistory:function(index)
     {
+        if(index == SearchManager.LAST_HISTORY_SEARCH_RESULT){
+            return this.searchHistory[this.searchHistory.length - 1];
+        }
+
         return this.searchHistory[index];
     },
     getResultHistory:function(index)
@@ -56,5 +70,6 @@ var SearchManager = function()
     this.searchHistory = [];
     this.resultsHistory = [];
 };
+SearchManager.LAST_HISTORY_SEARCH_RESULT = -1;
 SearchManager.prototype = SearchManagerPrototype;
 
