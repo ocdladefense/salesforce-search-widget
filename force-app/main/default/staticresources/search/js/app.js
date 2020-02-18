@@ -16,7 +16,7 @@ function acceptUserInput(e)
 
 	function sendUserInputToSearchManager()
 	{
-		manager.execute(userInput, filterInput);
+		manager.execute(userInput, filterInput());
 		console.log(userInput);
 	}
 	

@@ -19,11 +19,11 @@
 
 #storeSearchBox:focus~.input-group-text {
 	outline: 0;
-	border-color: initial;
+	border-color: initial !important;
 	box-shadow: none;
 }
 
 .input-group-text {
-	border: 1px solid !important;
+	border: 1px solid #dee2e6 !important;
 	border-left: none;
 }
