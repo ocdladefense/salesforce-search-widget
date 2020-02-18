@@ -4,10 +4,15 @@
     
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/search.js')}" />    
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/searchManager.js')}" />    
-    <apex:includeScript value="{!URLFOR($Resource.search,'/js/searchLibrary.js')}" />    
+    <apex:includeScript value="{!URLFOR($Resource.search,'/js/event.js')}" />    
+    <apex:includeScript value="{!URLFOR($Resource.search,'/js/render.js')}" />    
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/config.js')}" />    
-    <apex:includeScript value="{!URLFOR($Resource.search,'/js/app.js')}" />
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/filter.js')}" />
+    
+    <apex:includeScript value="{!URLFOR($Resource.search,'/js/app.js')}" />
+    
+    <apex:stylesheet value="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" html-integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" html-crossorigin="anonymous" />
+    <apex:includeScript value="https://kit.fontawesome.com/358b1b3615.js" html-crossorigin="anonymous" />
     
 
 	<apex:stylesheet value="{!URLFOR($Resource.search,'/css/style.css')}" />      
