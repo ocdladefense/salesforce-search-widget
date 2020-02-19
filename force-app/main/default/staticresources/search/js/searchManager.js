@@ -1,8 +1,17 @@
 
 var SearchManagerPrototype = 
 {
-    doSearch:function(search, filter)
+    doSearch:function(params, filter)
     {
+
+        if(!(params instanceof Search)){
+            search = params.search;
+            filter = params.filter;
+        } else{
+            search = params;
+        }
+
+
         console.log(search.getTerms());
         if(!(search.getTerms().length > 0)) return false;
 
