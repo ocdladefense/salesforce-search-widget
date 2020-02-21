@@ -1,4 +1,4 @@
-<apex:component layout="none" controller="StoreSearch"> 
+<apex:component layout="none" controller="StoreSearch" id="component"> 
 
     <!--- Three dashes for a Visualforce comment -->
     
@@ -17,14 +17,19 @@
 
 	<apex:stylesheet value="{!URLFOR($Resource.search,'/css/style.css')}" />      
 
+    <!-- <script>
+        var families = {!FamilySelect};
+    </script> -->
+
     <div id="searchWidget" class="p-0 my-2">
         <div class="form-inline">
-            <select name="families" id="families-select" class="form-control col-2">
-                <!--- A method to query all product families here -->
-                <option value="producttype1">Product Type 1</option>
-                <option value="producttype2">Product Type 2</option>
-                <option value="producttype3">Product Type 3</option>
-            </select>
+            <div class="col-4">
+                <apex:form id="search-form">
+                    <apex:selectList styleClass="form-control" id="family-select" size="1" onselect="{ currentFilter=value }">
+                        <apex:selectOptions Value="{!FamilyOptions}"></apex:selectOptions>
+                    </apex:selectList>
+                </apex:form>
+            </div>
 
             <div class="col-md-4">
                 <div id="storeSearchBox" class="input-group">

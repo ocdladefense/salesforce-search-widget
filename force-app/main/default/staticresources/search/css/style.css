@@ -10,6 +10,21 @@
 	color: #666;
 }
 
+
+/* display: block;
+height: 150px;
+border: 1px solid;
+padding-left: 150px;
+font-size: 16px;
+text-decoration: none;
+color: #666; */
+.family-event {
+	background-image: URL(/url);
+	background-position: center left;
+	background-repeat: no-repeat;
+	
+}
+
 /* hide the default bootstrap blue outline */
 .form-control:focus {
     outline: 0 !important;

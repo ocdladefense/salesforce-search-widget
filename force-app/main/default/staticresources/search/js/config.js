@@ -6,9 +6,13 @@ var INPUT_CONTAINER = "searchInputBox";
 
 
 var CUSTOM_RESULT_RENDERER = function(res) {
+	console.log(res);
 	var prodName = res.Name;
 	var prodId = res.Id;
-	var prodHtml="<a href='/"+prodId+"'>"+ res.Description + "</a><br />";
+	var prodFamily = res.Family;
+	var prodHtml="<a href='/"+prodId+"' class='family-" + prodFamily + "'>"+ prodName + " " + prodFamily + "</a><br />";
 	
 	return prodHtml;
 };
+
+{/* <i class="fas fa-download"></i> */}

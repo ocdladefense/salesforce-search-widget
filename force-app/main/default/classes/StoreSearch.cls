@@ -4,14 +4,39 @@ public class StoreSearch
     
     public string JsonProducts{public get;private set;}
     
-	public static final SearchSettings settings = new SearchSettings();    
+    public static final SearchSettings settings = new SearchSettings();
+
+    public List<SelectOption> FamilyOptions { get { return FillFamilySelect(); }}
+    
+    public List<AggregateResult> families {get; set;}
     
     public StoreSearch()
     {
         //string is whatever is coming from the force page 
         products = [select name, description from Product2];// Where name Like %'searchKey'%
+
+        families = settings.GetFamilies();
         
         JsonProducts = JSON.Serialize(products);  
+    }
+
+    public String GetFamilySelect() {
+        return JSON.serialize(new Map<String,String>{'Event' => 'Event Ticket', 'Donation' => 'Donation'});
+    }
+
+    public List<SelectOption> FillFamilySelect() {
+        List<AggregateResult> familiesFromDb = settings.GetFamilies();
+        List<SelectOption> familySelectOptions = new List<SelectOption>();
+        String family;
+        for(AggregateResult ar : familiesFromDb) {
+            if(ar != null) {
+                family = (String)ar.get('Family');
+                if(family != 'null' && family != null) {
+                    familySelectOptions.add(new SelectOption(family, family));
+                }
+            }
+        }
+        return familySelectOptions;
     }
 
     
@@ -29,6 +54,10 @@ public class StoreSearch
             return QueryWithFilter(searchTerms, filter);
         }
     }
+
+    public static String QueryBuilder(String[] searchTerms) {
+        return '';
+    }
     
     private static Map<String, List<SearchResult>> QueryNoFilter (string[] searchTerms) {
         String searchKey, searchQuery;
@@ -43,7 +72,7 @@ public class StoreSearch
         // String searchQuery='select Name,id,description, from product2 where name like \'%'+searchKey+'%\' Limit 100';
         
         
-        searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, UnitPrice FROM PricebookEntry '+
+        searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, Product2.Family FROM Product2 '+
             'WHERE Product2.Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
         
         products = Database.query(searchQuery);
@@ -72,8 +101,8 @@ public class StoreSearch
         // String searchQuery='select Name,id,description, from product2 where name like \'%'+searchKey+'%\' Limit 100';
         
         
-        searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, UnitPrice FROM PricebookEntry '+
-            'WHERE Product2.Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
+        searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, Product2.Family FROM Product2 '+
+        'WHERE Product2.Name LIKE \'%'+ searchKey +'%\' AND Product2.Family = \'' + filter + '\' LIMIT 100 OFFSET 0';
         
         products = Database.query(searchQuery);
         
@@ -97,7 +126,7 @@ public class StoreSearch
         List<SearchResult> results = new List<SearchResult>();
         
         for(SObject r : records){
-            results.add(new SearchResult((PricebookEntry)r));
+            results.add(new SearchResult((Product2) r));
         }
         
         return results;
@@ -137,12 +166,15 @@ public class StoreSearch
         public String Description;
         
         public Decimal UnitPrice;
+
+        public String Family;
         
-        public SearchResult(PricebookEntry obj){
+        public SearchResult(Product2 obj){
             this.Id = obj.Id;
-            this.Name = obj.Product2.Name;
-            this.Description = obj.Product2.Description;
-            this.UnitPrice = obj.UnitPrice;
+            this.Name = obj.Name;
+            this.Description = obj.Description;
+            this.UnitPrice = 125.00;
+            this.Family = obj.Family;
         }
         
         public SearchResult(){}

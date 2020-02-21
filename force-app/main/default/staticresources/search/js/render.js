@@ -28,8 +28,9 @@ function renderHtml(json) {
  * Default render function for search results.
  */
 function default_renderer(res) {
-		var prodName = cResult.Name;
-		var prodId = cResult.Id;
+		console.log(res);
+		var prodName = res.Name;
+		var prodId = res.Id;
 		var prodHtml="<br><a href='/"+prodId+"'>"+ prodName + "ID:"+prodId+"</a>";
 		
 		return prodHtml;

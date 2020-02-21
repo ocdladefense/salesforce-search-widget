@@ -1,6 +1,7 @@
 
 var manager = new SearchManager();
 var timerId;
+var currentFilter = null;
 
 function acceptUserInput(e)
 {
@@ -12,7 +13,9 @@ function acceptUserInput(e)
 	var userInput = e.target.value;
 
 	var filterInput = function() {
-		return null;
+		var select = document.querySelector('select[id *= "family-select"]');
+		var value = select.options[select.selectedIndex].value;
+		return value;
 	}
 
 	//var outputLabel = document.getElementById("outputLabel");
@@ -21,7 +24,6 @@ function acceptUserInput(e)
 	function sendUserInputToSearchManager()
 	{
 		manager.execute(userInput, filterInput());
-		console.log(userInput);
 	}
 	
 	// Wait a bit before sending typed input to the server.
@@ -46,16 +48,9 @@ function onFilterChange(e)
 document.addEventListener("DOMContentLoaded", function(event){
 	 document.getElementById('searchInputBox').addEventListener('input',acceptUserInput,true);
 	 document.getElementById('families-select').addEventListener('change', onFilterChange, true);
-	 document.addEventListener('click', function (e){
-		 window.alert(e.target.nodeName + "capture phase");
-	 },true);
-
-	 document.addEventListener('click', function (e){
-		window.alert(e.target.nodeName + "target phase");
-	},false);
 
 	 var searchWidget = document.getElementById(WIDGET_CONTAINER);
 	 // document.getElementById(RESULTS_CONTAINER).innerHTML=NO_SEARCH_RESULT_STRING;
-	 searchWidget.addEventListener("click", checkEvent,true);		   			   
+	 searchWidget.addEventListener("click", checkEvent,true);
  });
 

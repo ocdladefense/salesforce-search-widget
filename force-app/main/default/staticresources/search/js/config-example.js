@@ -4,6 +4,7 @@
  var INPUT_CONTAINER = "searchInputBox";
 
 
+
  
  
  var DEFAULT_RESULT_RENDERER = function(cResult)
