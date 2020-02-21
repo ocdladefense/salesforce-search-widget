@@ -1,6 +1,7 @@
 
 var manager = new SearchManager();
 var timerId;
+var currentFilter = null;
 
 function searchInput(e)
 {
@@ -20,13 +21,21 @@ function searchInput(e)
 	//Immediately start the timer after the first keystroke
 	//But also start the timer after every keystroke
 	//Any additional keystroke cancels the previous timer
+	var userInput = e.target.value;
+
+	var filterInput = function() {
+		var select = document.querySelector('select[id *= "family-select"]');
+		var value = select.options[select.selectedIndex].value;
+		console.log(value);
+		return value;
+	}
+
 	//var outputLabel = document.getElementById("outputLabel");
 	//outputLabel.classList.add("loader");
 
 	function sendUserInputToSearchManager()
 	{
 		manager.execute(userInput, filterInput());
-		console.log(userInput);
 	}
 	if(eventType == "change"){
 		defaultSearch.filter = new Filter(target.value);
@@ -52,10 +61,12 @@ function searchInput(e)
 document.addEventListener("DOMContentLoaded", function(event){
 	 document.addEventListener('input',searchInput,true);
 	 document.addEventListener('change', searchInput, true);
+	 document.getElementById('searchInputBox').addEventListener('input',acceptUserInput,true);
+	 document.getElementById('families-select').addEventListener('change', onFilterChange, true);
 
 	 var searchWidget = document.getElementById(WIDGET_CONTAINER);
 	 // document.getElementById(RESULTS_CONTAINER).innerHTML=NO_SEARCH_RESULT_STRING;
-	 searchWidget.addEventListener("click", checkEvent,true);		   			   
+	 searchWidget.addEventListener("click", checkEvent,true);
  });
 
 
