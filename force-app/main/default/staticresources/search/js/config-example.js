@@ -1,31 +1,16 @@
- var NO_SEARCH_RESULT_STRING = "No Data Yet!";
- var WIDGET_CONTAINER = "searchWidget";
- var RESULTS_CONTAINER = "outputLabel";
- var INPUT_CONTAINER = "searchInputBox";
+var NO_SEARCH_RESULT_STRING = "No Data Yet!";
+var WIDGET_CONTAINER = "searchWidget";
+var RESULTS_CONTAINER = "outputLabel";
+var INPUT_CONTAINER = "searchInputBox";
 
 
 
- 
- 
- var DEFAULT_RESULT_RENDERER = function(cResult)
- {
-		var prodName = cResult.Name;
-		var prodId = cResult.Id;
-		var prodHtml="<br><a href='/"+prodId+"'>"+ prodName + "ID:"+prodId+"</a>";
-		
-		return prodHtml;
- };
- 
- //uncomment if you want to render differently
- 
- var CUSTOM_RESULT_RENDERER;
- /*
- var CUSTOM_RESULT_RENDERER= function(cResult)
- {
-				 var prodName = cResult.Name;
-		 var prodId = cResult.Id;
-			 var prodHtml="<a href='/"+prodId+"'>"+ cResult.Description + </a><br>";
-		 return prodHtml;
- };
- 
- */
+var CUSTOM_RESULT_RENDERER = function(res) {
+	var prodName = res.Name;
+	var prodId = res.Id;
+	var prodFamily = res.Family;
+	var prodHtml="<a href='/"+prodId+"' class='family-" + prodFamily + "'>"+ prodName + " - <strong>" + prodFamily + "</strong></a><br />";
+
+	
+	return prodHtml;
+};
