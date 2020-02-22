@@ -14,8 +14,6 @@ public class StoreSearch
     {
         //string is whatever is coming from the force page 
         products = [select name, description from Product2];// Where name Like %'searchKey'%
-
-        families = settings.GetFamilies();
         
         JsonProducts = JSON.Serialize(products);  
     }
@@ -25,11 +23,12 @@ public class StoreSearch
     }
 
     public List<SelectOption> FillFamilySelect() {
-        List<AggregateResult> familiesFromDb = Database.Query(settings.familyQuery);
+        families = Database.Query(settings.familyQuery);
         List<SelectOption> familySelectOptions = new List<SelectOption>();
         // Add a default SelectOption "all" that sets filter to null
+        familySelectOptions.add(new SelectOption('All', 'All'));
         String family;
-        for(AggregateResult ar : familiesFromDb) {
+        for(AggregateResult ar : families) {
             if(ar != null) {
                 family = (String)ar.get('Family');
                 if(family != 'null' && family != null) {

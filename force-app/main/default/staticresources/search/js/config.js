@@ -10,7 +10,7 @@ var CUSTOM_RESULT_RENDERER = function(res) {
 	var prodName = res.Name;
 	var prodId = res.Id;
 	var prodFamily = res.Family;
-	var prodHtml="<a href='/"+prodId+"' class='family-" + prodFamily + "'>"+ prodName + " " + prodFamily + "</a><br />";
+	var prodHtml="<a href='/"+prodId+"' class='family-" + prodFamily + "'>"+ prodName + " - <strong>" + prodFamily + "</strong></a><br />";
 	
 	return prodHtml;
 };

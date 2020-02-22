@@ -11,8 +11,6 @@ var SearchManagerPrototype =
             search = params;
         }
 
-
-        console.log(search.getTerms());
         if(!(search.getTerms().length > 0)) return false;
 
 		this.searchHistory.push(search);
@@ -35,12 +33,13 @@ var SearchManagerPrototype =
             // this.resultsHistory.push(json);
         });
     },
-    execute:function(searchString, filterString)
-    {
-        var search = new Search(searchString);
-        var filter = new Filter(filterString);
-        this.doSearch(search, filter);
-    },
+    // --- MARKED FOR DELETION
+    // execute:function(searchString, filterString)
+    // {
+    //     var search = new Search(searchString);
+    //     var filter = new Filter(filterString);
+    //     this.doSearch(search, filter);
+    // },
 
     resultsHasHistory:function()
     {

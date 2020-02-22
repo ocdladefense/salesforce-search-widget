@@ -3,14 +3,14 @@ var manager = new SearchManager();
 var timerId;
 var currentFilter = null;
 
-function searchInput(e)
+function getInput(e)
 {
 	var eventType = e.type;
 	var target = e.target;
 
 	var defaultSearch = 
 	{
-		search: new Search("test"),
+		search: new Search(""),
    
 		filter: new Filter()
 	};
@@ -21,52 +21,75 @@ function searchInput(e)
 	//Immediately start the timer after the first keystroke
 	//But also start the timer after every keystroke
 	//Any additional keystroke cancels the previous timer
-	var userInput = e.target.value;
+	// var userInput = e.target.value;
+	var searchInput = function() {
+		var inputBox = document.getElementById('searchInputBox');
+		var value = inputBox.value;
+		if (!value) {
+			value = "";
+		}
+		console.log("Search Box Value: " + value);
+		return value;
+	}
 
 	var filterInput = function() {
 		var select = document.querySelector('select[id *= "family-select"]');
 		var value = select.options[select.selectedIndex].value;
-		console.log(value);
+		if(value == "All") {
+			value = null;
+		}
+		console.log("Filter Value: " + value);
 		return value;
 	}
 
 	//var outputLabel = document.getElementById("outputLabel");
 	//outputLabel.classList.add("loader");
 
-	function sendUserInputToSearchManager()
-	{
-		manager.execute(userInput, filterInput());
-	}
-	if(eventType == "change"){
-		defaultSearch.filter = new Filter(target.value);
+	// --- MARKED FOR DELETION
+	// function sendUserInputToSearchManager()
+	// {
+	// 	manager.execute(searchInput(), filterInput());
+	// }
 
-		// Could reasess value of input field, alternatively use input history 
-	
+	if(eventType == "change"){
+		defaultSearch.filter = new Filter(filterInput());
+
+		// check the history for last search
 		defaultSearch.search = manager.getHistory(SearchManager.LAST_HISTORY_SEARCH_RESULT);
+
+		// if there is no history, create a new search
+		if(!defaultSearch.search) {
+			defaultSearch.search = new Search(searchInput());
+		}
 
 		manager.doSearch(defaultSearch);
 	} 
 	else if(eventType == "input") {
-
-		defaultSearch.search = new Search(target.value);
+		defaultSearch.filter = new Filter(filterInput())
+		defaultSearch.search = new Search(searchInput());
 
 		// Wait a bit before sending typed input to the server.
 		timerId = setTimeout(function(){ manager.doSearch(defaultSearch)}, 350);
-	} 
-
+	} else if (eventType == "DOMContentLoaded") {
+		defaultSearch.filter = new Filter(filterInput());
+		defaultSearch.search = new Search(searchInput());
+		manager.doSearch(defaultSearch);
+	}
 	
 	
 }
 
 document.addEventListener("DOMContentLoaded", function(event){
-	 document.addEventListener('input',searchInput,true);
-	 document.addEventListener('change', searchInput, true);
-	 document.getElementById('searchInputBox').addEventListener('input',acceptUserInput,true);
-	 document.getElementById('families-select').addEventListener('change', onFilterChange, true);
+	//run the initial search on page load (Filter = all, Search = "")
+	getInput(event);
 
-	 var searchWidget = document.getElementById(WIDGET_CONTAINER);
-	 // document.getElementById(RESULTS_CONTAINER).innerHTML=NO_SEARCH_RESULT_STRING;
-	 searchWidget.addEventListener("click", checkEvent,true);
+
+	document.addEventListener('input', getInput, true);
+	document.addEventListener('change', getInput, true);
+
+	var searchWidget = document.getElementById(WIDGET_CONTAINER);
+	// document.getElementById(RESULTS_CONTAINER).innerHTML=NO_SEARCH_RESULT_STRING;
+	searchWidget.addEventListener("click", checkEvent,true);
  });
 
 
