@@ -55,30 +55,99 @@ public class StoreSearch
         }
     }
 
-    public static String QueryBuilder(String[] searchTerms) {
-        return '';
+    public static String QueryBuilder(String[] searchTerms, string filter) {
+        String query = '';
+
+        query += BuildSelect();
+        query += BuildWhere(searchTerms, filter);
+
+        system.debug(query);
+        
+        return query;
+    }
+
+    private static String BuildSelect() {
+        String selectStatement = 'SELECT ';
+
+        // add each field to the select
+        for(Integer i = 0; i < settings.returnFields.size(); i++) {
+            selectStatement += settings.targetObject + '.' + settings.returnFields[i];
+
+            if(i != settings.returnFields.size() - 1) {
+                selectStatement += ', ';
+            }
+        }
+
+        // add the FROM clause
+        selectStatement += ' FROM ' + settings.targetObject;
+
+        return selectStatement;
+    }
+
+    private static String BuildWhere(String[] searchTerms, String filter) {
+        String whereStatement = ' WHERE ';
+
+        // search for every 'term' in every 'searchField'
+        for(Integer i = 0; i < searchTerms.size(); i++) {
+            
+            // each search term should be wraped in () and seperated by 'OR'
+            whereStatement += '(';
+            
+            for(Integer j = 0; j < settings.searchFields.size(); j++) {
+                whereStatement += settings.targetObject + '.' + settings.searchFields[j] + ' LIKE \'%' + searchTerms[i] + '%\'';
+                
+                // as long as it is not the last time through the loop, add an 'OR'
+                if(i != searchTerms.size() && j != settings.searchFields.size() - 1) {
+                    whereStatement += ' OR ';
+                }
+            }
+
+            whereStatement += ')';
+
+            // seperate each search term by 'AND' not 'OR'
+            if(i != searchTerms.size() - 1) {
+                whereStatement += ' AND ';
+            }
+        }
+
+        // if there is a filter, add it to the where statement
+        if(filter != null) {
+            whereStatement += ' AND (';
+            for(Integer i = 0; i < settings.filterFields.size(); i++) {
+                whereStatement += settings.targetObject + '.' + settings.filterFields[i] + ' LIKE \'%' + filter + '%\'';
+
+                // as long as it is not the last time through the loop, add an 'AND'
+                if(i != settings.filterFields.size() - 1) {
+                    whereStatement += ' AND ';
+                }
+            }
+            whereStatement += ')';
+        }
+
+        // add the limit
+        whereStatement += ' LIMIT ' + String.valueOf(settings.limitObjects) + ' OFFSET 0';
+
+        return whereStatement;
     }
     
     private static List<SearchResult> QueryNoFilter (string[] searchTerms) {
-        String searchKey, searchQuery;
+        String searchQuery;
         
+        String filter = null;
+
         List<SObject> products;
             
 		List<SearchResult> results;
         
-        searchKey = String.join(searchTerms,' ');
-        
-        /** Previous query **/
-        // String searchQuery='select Name,id,description, from product2 where name like \'%'+searchKey+'%\' Limit 100';
-        
-        
+        // String searchKey = String.join(searchTerms,' ');  
 
-        searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, Product2.Family FROM Product2 '+
-            'WHERE Product2.Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
-        
+        // searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, Product2.Family FROM Product2 '+
+        //     'WHERE Product2.Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
+
+        // Build the query using a null filter
+        searchQuery = QueryBuilder(searchTerms, filter);
+    
         products = Database.query(searchQuery);
-        
-
         
         if(SearchSettings.USE_SAMPLE_DATA){
             results = getSampleResults();
@@ -90,24 +159,20 @@ public class StoreSearch
     }
 
     private static List<SearchResult> QueryWithFilter (string[] searchTerms, string filter) {
-        String searchKey, searchQuery;
+        String searchQuery;
         
         List<SObject> products;
             
 		List<SearchResult> results;
         
-        searchKey = String.join(searchTerms,' ');
+        // String searchKey = String.join(searchTerms,' ');
         
-        /** Previous query **/
-        // String searchQuery='select Name,id,description, from product2 where name like \'%'+searchKey+'%\' Limit 100';
-        
-        
-        searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, Product2.Family FROM Product2 '+
-        'WHERE Product2.Name LIKE \'%'+ searchKey +'%\' AND Product2.Family = \'' + filter + '\' LIMIT 100 OFFSET 0';
+        // searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, Product2.Family FROM Product2 '+
+        // 'WHERE Product2.Name LIKE \'%'+ searchKey +'%\' AND Product2.Family = \'' + filter + '\' LIMIT 100 OFFSET 0';
+
+        searchQuery = QueryBuilder(searchTerms, filter);
         
         products = Database.query(searchQuery);
-        
-
         
         if(SearchSettings.USE_SAMPLE_DATA){
             results = getSampleResults();

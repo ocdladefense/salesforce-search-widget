@@ -16,23 +16,26 @@ public without sharing class SearchSettingsExample {
     
     
     // Fields that will be returned as part of the search.
-    String[] fields = new String[]{'Product2.Id','Product2.Name',
-        'Product2.Description', 'UnitPrice'};
-            
-            
-	// Which objects are we searching.
-    String[] targetObjects =  new String[]{'PricebookEntry'};
-           
-        
-	// Filter parameters make our filter string easier to read.
-	List<Object> params = new List<Object>();
-        
-    
-	// Run this through String.format using params, above, 
-	String filter =   'WHERE Product2.Name LIKE \'%{0}%\' LIMIT 100 OFFSET 0';                                 
-    
-     public string familyQuery = 'SELECT Family FROM Product2 GROUP BY Family';
+    public String[] returnFields = new String[]{'Id','Name', 'Description', 'Family'};
 
+    // Fields that will be searched
+    public String[] searchFields = new String[]{'Name', 'Description', 'Family'};
+
+    // Fields that will be filtered
+    public String[] filterFields = new String[]{'Family'};
+            
+	// Which object are we searching
+    public String targetObject = 'Product2';
+
+    // Limit the objects returned
+    public Integer limitObjects = 100;
+           
+    // --- MARKED FOR DELETION
+	// // Filter parameters make our filter string easier to read.
+    // List<Object> params = new List<Object>();
+    
+	// // Run this through String.format using params, above, 
+	// String filter =   'WHERE Product2.Name LIKE \'%{0}%\' LIMIT 100 OFFSET 0';
     
     // Default constructor.
     public SearchSettingsExample() {}
