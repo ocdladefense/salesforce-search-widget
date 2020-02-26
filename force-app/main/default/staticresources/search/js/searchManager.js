@@ -25,9 +25,11 @@ var SearchManagerPrototype =
         
         request.then(function(json) {
         	console.log(json);
-        	if(!json || json.length < 1) return [];
-					var parsedResults = renderHtml(json);
-					document.getElementById(RESULTS_CONTAINER).innerHTML = ("<h1>Search Results</h1>"+parsedResults);
+
+            json = json || [];
+
+            var parsedResults = renderHtml(json);
+            //document.getElementById(SEARCH_RESULT_CONTAINER).innerHTML = "Search Results";
         })
         .then(function(json) {
             // this.resultsHistory.push(json);
