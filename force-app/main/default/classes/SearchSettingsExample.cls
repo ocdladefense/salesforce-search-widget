@@ -6,6 +6,9 @@
  *  for others to configure their own installations.
  */
 public without sharing class SearchSettingsExample {
+
+    // Used to query the "family" drop down list
+    public string familyQuery = 'SELECT Family FROM Product2 GROUP BY Family';
     
     // Whether to use any mock data for search results.
     // Helpful when there is no sample data, i.e., in scratch orgs
