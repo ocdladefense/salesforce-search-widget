@@ -18,6 +18,8 @@ function getInput(e)
 	//Clear any previous timer
 	clearTimeout(timerId);
 
+	
+
 	//Immediately start the timer after the first keystroke
 	//But also start the timer after every keystroke
 	//Any additional keystroke cancels the previous timer
@@ -50,6 +52,8 @@ function getInput(e)
 	// {
 	// 	manager.execute(searchInput(), filterInput());
 	// }
+
+	
 
 	if(eventType == "change"){
 		defaultSearch.filter = new Filter(filterInput());

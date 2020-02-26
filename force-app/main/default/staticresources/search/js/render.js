@@ -8,20 +8,17 @@
 function renderHtml(json) {
 	var html = "";
 	
-	for(var sobjectname in json){
-		for(var i = 0; i<json[sobjectname].length; i++) {
-			var res = json[sobjectname][i];
-			res.sobjectname = sobjectname;
-			var prodHtml = !!CUSTOM_RESULT_RENDERER ? CUSTOM_RESULT_RENDERER(res) : default_renderer(res);
-			
-			html += prodHtml;
-		}
+	console.log(json);
+
+	if(!json){
+		html = noSearchResults();
+	}
+	else{	
+			html = json.map(!!CUSTOM_RESULT_RENDERER ? CUSTOM_RESULT_RENDERER : default_renderer).join("\n");
 	}
 	
-	
-	return html;
+	document.getElementById(RESULTS_CONTAINER).innerHTML = html;
 }
-
 
 
 /**

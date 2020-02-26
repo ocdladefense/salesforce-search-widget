@@ -9,7 +9,7 @@ public without sharing class SearchSettingsExample {
     
     // Whether to use any mock data for search results.
     // Helpful when there is no sample data, i.e., in scratch orgs
-    public static final Boolean USE_SAMPLE_DATA = True;
+    public static final Boolean USE_SAMPLE_DATA = False;
     
     
     // Fields that will be returned as part of the search.
@@ -28,6 +28,8 @@ public without sharing class SearchSettingsExample {
 	// Run this through String.format using params, above, 
 	String filter =   'WHERE Product2.Name LIKE \'%{0}%\' LIMIT 100 OFFSET 0';                                 
     
+     public string familyQuery = 'SELECT Family FROM Product2 GROUP BY Family';
+
     
     // Default constructor.
     public SearchSettingsExample() {}

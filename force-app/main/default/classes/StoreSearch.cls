@@ -22,7 +22,7 @@ public class StoreSearch
         return JSON.serialize(new Map<String,String>{'Event' => 'Event Ticket', 'Donation' => 'Donation'});
     }
 
-    public List<SelectOption> FillFamilySelect() {
+   public List<SelectOption> FillFamilySelect() {
         families = Database.Query(settings.familyQuery);
         List<SelectOption> familySelectOptions = new List<SelectOption>();
         // Add a default SelectOption "all" that sets filter to null
@@ -37,7 +37,7 @@ public class StoreSearch
             }
         }
         return familySelectOptions;
-    }
+    } 
 
     
     /**
@@ -46,7 +46,7 @@ public class StoreSearch
      * For scratch org development we need to return some sample records.
      */
     @RemoteAction
-    public static Map<String, List<SearchResult>> GetQueryResults(string[] searchTerms, string filter)
+    public static List<SearchResult> GetQueryResults(string[] searchTerms, string filter)
     {
         if(filter == null) {
             return QueryNoFilter(searchTerms);
@@ -59,7 +59,7 @@ public class StoreSearch
         return '';
     }
     
-    private static Map<String, List<SearchResult>> QueryNoFilter (string[] searchTerms) {
+    private static List<SearchResult> QueryNoFilter (string[] searchTerms) {
         String searchKey, searchQuery;
         
         List<SObject> products;
@@ -86,10 +86,10 @@ public class StoreSearch
             results = toSearchResults(products);
         }
 
-        return new Map<String, List<SearchResult>>{'Product2' => results};
+        return results;
     }
 
-    private static Map<String, List<SearchResult>> QueryWithFilter (string[] searchTerms, string filter) {
+    private static List<SearchResult> QueryWithFilter (string[] searchTerms, string filter) {
         String searchKey, searchQuery;
         
         List<SObject> products;
@@ -115,7 +115,7 @@ public class StoreSearch
             results = toSearchResults(products);
         }
 
-        return new Map<String, List<SearchResult>>{'Product2' => results};
+        return results;
     }
     
     /**

@@ -21,12 +21,12 @@
         var families = {!FamilySelect};
     </script> -->
 
-    <div id="searchWidget" class="p-0 my-2">
+    <div id="search-widget" class="p-0 my-2">
         <div class="form-inline">
             <div class="col-4">
                 <apex:form id="search-form">
                     <apex:selectList styleClass="form-control" id="family-select" size="1" onselect="{ currentFilter=value }">
-                        <apex:selectOptions Value="{!FamilyOptions}"></apex:selectOptions>
+                       <apex:selectOptions Value="{!FamilyOptions}"></apex:selectOptions> 
                     </apex:selectList>
                 </apex:form>
             </div>
