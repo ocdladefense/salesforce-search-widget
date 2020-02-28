@@ -22,6 +22,7 @@
                         Here is the actual StoreSearch component:
                     </h2>
                     <c:StoreSearch />
+                   
 
                 </div>
             </div>
