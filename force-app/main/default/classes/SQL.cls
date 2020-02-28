@@ -9,6 +9,10 @@ public with sharing class SQL {
     public static String FIELD_SEPERATOR = ',';
     public static String TOKEN_SEPERATOR = ' ';
 
+		public static final String ORDER_BY_ASC = 'ASC';
+		
+		public static final String ORDER_BY_DESC = 'DESC';
+
     public SQL() {
 
     }

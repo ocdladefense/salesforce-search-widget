@@ -1,15 +1,64 @@
 public with sharing class QueryBuilder {
 
-    private String[] columns = new String[]{};
-    private String[] conditions = new String[]{};
+		/**
+		 * @var table
+		 *
+		 * @description The name of the SObject/table 
+		 *  that will be queried; will be used in the FROM
+		 *  portion of the SOQL query.
+		 */
     private String table;
-    private String query;
-    // private List<String[]> groups = new List<String[]>{};
-    // private List<SqlCondition> group1 = new List<SqlCondition>{cond1, cond2, cond3};
-    // private List<SqlCondition> group2 = new List<SqlCondition>{cond4, cond5, cond6};
-    // private List<SqlConditionGroup> groups = new List<SqlConditionGroup>{group1, group2};
+    
+    /**
+     * @var columns
+     *
+     * @description A list of object fields/columns
+     *  to be queried from objects in the SOQL.
+     *
+     * @type String Array
+     */
+    private String[] columns = new String[]{};
+
+		/**
+		 * @var groups
+		 *
+		 * @description Conditions that will be applied to 
+		 *  the SOQL query.
+		 *
+		 * @type SqlCondition Array
+		 */
     private List<SqlCondition[]> groups = new List<SqlCondition[]>{};
- 
+    
+    
+		/**
+		 * @var options
+		 *
+		 * @description - An array of options to be 
+		 *  passed at the end of the SOQL query.
+		 *  Example: ORDER BY PRICE DESC (for ordering Products 
+		 *  from most-expensive to least-expensive.
+		 *
+		 *  @type String[]
+		 */
+		private List<String[]> options = new List<String[]>{};
+		
+		
+
+
+		/**
+		 * @var query
+		 *
+		 * @description - The compiled query, for debugging.
+		 *  Can be passed to a Database.query statement.
+		 *
+		 * @type String
+		 */
+    private String query;
+
+
+ 		/**
+ 		 * @constructor
+ 		 */
     public QueryBuilder() {
         groups.add(new SqlCondition[]{});
     }
@@ -52,8 +101,6 @@ public with sharing class QueryBuilder {
             table
         };
 
-        // query = 'SELECT ' + String.join(columns, Sql.FIELD_SEPERATOR) + ' FROM ' + table;
-
 
         if(groups[0].size() > 0) {
             temp.addAll(new String[]{
@@ -68,6 +115,15 @@ public with sharing class QueryBuilder {
         system.debug(query);
 
         return query;
+    }
+    
+    public QueryBuilder orderBy(String fname) {
+    	return this.orderBy(fname,Sql.ORDER_BY_ASC);
+    }
+    public QueryBuilder orderBy(String fname, String ascDesc) {
+    	this.options.add(new String[]{'ORDER BY',fname,ascDesc});
+    	
+    	return this;
     }
 
     // private static String BuildSelect() {
@@ -84,9 +140,7 @@ public with sharing class QueryBuilder {
     //     // return 'SELECT ' + String.join(SQL.FIELD_SEPERATOR, columns) + ' FROM ' + table;
     // }
 
-    public class QBCondition{
-        public QBCondition() {}
-    }
+
 
     public String BuildWhere() {
         // String[] groups = new String[]{};
