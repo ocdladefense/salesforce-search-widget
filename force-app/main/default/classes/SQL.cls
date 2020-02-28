@@ -8,6 +8,10 @@ public with sharing class SQL {
     
     public static String OPERATOR_EQUALS = '=';
     
+    
+    // OP_AND, OP_OR, OP_LIKE, OP_EQ, OP_NEQ, OP_GT, OP_LT, OP_LTE, OP_GTE
+    public static String OP_NEQ = '!=';
+    
     public static String CONDITION_GROUP_START = '(';
     
     public static String CONDITION_GROUP_END = ')';

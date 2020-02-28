@@ -31,11 +31,19 @@ public with sharing class SqlCondition {
     public SqlCondition(Map<String, Object> condition) {
         this.field = (String)condition.get('field');
         this.op = (String)(null == condition.get('op') ? this.op : condition.get('op'));
-        this.value = (String)condition.get('value'); // check for int as well
+        this.value = null == condition.get('value') ? null : (String)condition.get('value');
     }
 
     public override string toString() {
-        return String.format(this.format, new Object[]{this.field, this.op, this.value});
+    		if(this.op == Sql.OPERATOR_LIKE) {
+        	return String.format(this.format, new Object[]{this.field, this.op, this.value});
+        } else if((new String[]{Sql.OPERATOR_EQUALS,Sql.OP_NEQ}).contains(this.op)) {
+        	if(null == this.value || 'NULL' == this.value) {
+        		return String.format('{0} {1} NULL',new String[]{this.field,this.op});
+        	}
+        }
+        
+				return String.format('{0} {1}\'\'{2}\'\'',new String[]{this.field,this.op,this.value});
     }
 
     public class SqlException extends Exception {}
