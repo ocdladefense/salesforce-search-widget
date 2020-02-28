@@ -96,7 +96,7 @@ public with sharing class QueryBuilder {
         // query += BuildSelect();
         String[] temp = new String[]{
             'SELECT',
-            String.join(columns, Sql.FIELD_SEPERATOR),
+            String.join(columns, Sql.FIELD_SEPARATOR),
             'FROM',
             table
         };
@@ -111,10 +111,10 @@ public with sharing class QueryBuilder {
         }
         
         for(String[] opt : options) {
-        	temp.add(String.join(opt, Sql.TOKEN_SEPERATOR));
+        	temp.add(String.join(opt, Sql.TOKEN_SEPARATOR));
         }
         
-        query = String.join(temp, Sql.TOKEN_SEPERATOR);
+        query = String.join(temp, Sql.TOKEN_SEPARATOR);
 
         system.debug(query);
 
@@ -147,7 +147,7 @@ public with sharing class QueryBuilder {
     //     //     }
     //     // }
 
-    //     // return 'SELECT ' + String.join(SQL.FIELD_SEPERATOR, columns) + ' FROM ' + table;
+    //     // return 'SELECT ' + String.join(SQL.FIELD_SEPARATOR, columns) + ' FROM ' + table;
     // }
 
 
@@ -180,7 +180,7 @@ public with sharing class QueryBuilder {
         for(SqlCondition condition : theGroup) {
             temp.add(condition.toString());
         }
-        return Sql.CONDITION_GROUP_START + String.join(temp, operator) + Sql.CONDITION_GROUP_END + Sql.TOKEN_SEPERATOR;
+        return Sql.CONDITION_GROUP_START + String.join(temp, operator) + Sql.CONDITION_GROUP_END + Sql.TOKEN_SEPARATOR;
     }
 
     // private static String BuildWhere(String[] searchTerms, String filter) {

@@ -48,21 +48,17 @@ public class StoreSearch
      * For scratch org development we need to return some sample records.
      */
     @RemoteAction
-    public static List<SearchResult> GetQueryResults(String[] searchTerms, String filter)
+    public static List<SearchResult> GetQueryResults(String[] terms, String filter)
     {
     
         List<SObject> products;
             
 				List<SearchResult> results;
         
-        // String searchKey = String.join(searchTerms,' ');  
-        // searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, Product2.Family FROM Product2 '+
-        //     'WHERE Product2.Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
-        // new QueryBuilder(searchTerms, filter);
-        
         
         // Build the query using a null filter
         QueryBuilder qb = QueryBuilder.NewFromSettings(settings.targetObject, settings.returnFields);
+        qb.addCondition(new SqlCondition('Name',String.join(terms,Sql.TOKEN_SEPARATOR),Sql.OPERATOR_LIKE));
         qb.orderBy('Name');
         qb.setLimit(100);
 

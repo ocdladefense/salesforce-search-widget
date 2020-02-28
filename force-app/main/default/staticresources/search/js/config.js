@@ -1,8 +1,13 @@
 var NO_SEARCH_RESULT_STRING = "No Data Yet!";
+
 var WIDGET_CONTAINER = "search-widget";
+
 var RESULTS_CONTAINER = "search-results";
+
 var INPUT_CONTAINER = "searchInputBox";
+
 var LOADER_CONTAINER = "loader-icon-container";
+
 var SEARCH_STATUS = "search-status";
 
 
@@ -10,8 +15,9 @@ var CUSTOM_RESULT_RENDERER = function(res) {
 	console.log(res);
 	var prodName = res.Name;
 	var prodId = res.Id;
-	var prodFamily = res.Family;
-	var prodHtml="<a href='/"+prodId+"' class='family-" + prodFamily + "'>"+ prodName + " - <strong>" + prodFamily + "</strong></a><br />";
+	var prodFamily = res.Family ? " - " + res.Family : "";
+	var prodFamilyClass = res.Family || "default";
+	var prodHtml="<a href='/"+prodId+"' class='family-" + prodFamilyClass + "'>"+ prodName + "<strong>"+prodFamily+"</strong>"+ "<br />"+res.UnitPrice+"</a><br />";
 	
 
 	return prodHtml;
