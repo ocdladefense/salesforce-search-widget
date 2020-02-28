@@ -17,6 +17,8 @@ function renderHtml(json) {
 			html = json.map(!!CUSTOM_RESULT_RENDERER ? CUSTOM_RESULT_RENDERER : default_renderer).join("\n");
 	}
 	
+	removeLoader();
+
 	document.getElementById(RESULTS_CONTAINER).innerHTML = html;
 }
 

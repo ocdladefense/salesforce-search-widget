@@ -4,6 +4,7 @@ var RESULTS_CONTAINER = "search-results";
 var INPUT_CONTAINER = "searchInputBox";
 var LOADER_CONTAINER = "loader-icon-container";
 var SEARCH_STATUS = "search-status";
+var 
 // Change values
 
 
@@ -29,5 +30,7 @@ function renderLoader(){
 
 	loaderElement.classList.add("loader");
 }
+
+
 
 {/* <i class="fas fa-download"></i> */}

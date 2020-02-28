@@ -53,6 +53,7 @@ function getInput(e)
 	// 	manager.execute(searchInput(), filterInput());
 	// }
 
+	renderLoader();
 	
 
 	if(eventType == "change"){
