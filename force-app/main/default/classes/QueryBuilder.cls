@@ -172,7 +172,7 @@ public with sharing class QueryBuilder {
 
         // groups.Add(AddGroup(group2, Sql.OPERATOR_OR));
 
-        return String.join(stringWheres, Sql.OPERATOR_OR);
+        return String.join(stringWheres, Sql.TOKEN_SEPARATOR + Sql.OPERATOR_OR + Sql.TOKEN_SEPARATOR);
     }
 
     public String FormatGroup(SqlCondition[] theGroup, String operator) {
@@ -180,7 +180,7 @@ public with sharing class QueryBuilder {
         for(SqlCondition condition : theGroup) {
             temp.add(condition.toString());
         }
-        return Sql.CONDITION_GROUP_START + String.join(temp, operator) + Sql.CONDITION_GROUP_END + Sql.TOKEN_SEPARATOR;
+        return Sql.CONDITION_GROUP_START + String.join(temp, (Sql.TOKEN_SEPARATOR + operator+Sql.TOKEN_SEPARATOR)) + Sql.CONDITION_GROUP_END + Sql.TOKEN_SEPARATOR;
     }
 
     // private static String BuildWhere(String[] searchTerms, String filter) {

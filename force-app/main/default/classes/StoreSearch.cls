@@ -58,7 +58,11 @@ public class StoreSearch
         
         // Build the query using a null filter
         QueryBuilder qb = QueryBuilder.NewFromSettings(settings.targetObject, settings.returnFields);
+        
         qb.addCondition(new SqlCondition('Name',String.join(terms,Sql.TOKEN_SEPARATOR),Sql.OPERATOR_LIKE));
+        
+        qb.addCondition(new SqlCondition('Family',NULL,Sql.OP_NEQ));
+        
         qb.orderBy('Name');
         qb.setLimit(100);
 
