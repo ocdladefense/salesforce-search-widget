@@ -22,11 +22,7 @@
                         Here is the actual StoreSearch component:
                     </h2>
                     <c:StoreSearch />
-                    <div id="search-result-area"> 
- 					    <span id="loader-icon-container"></span>
-                    	<h1 id="search-status"></h1>
-                        <p id="search-results"></p>
-                    </div>
+
                 </div>
             </div>
         </div>
