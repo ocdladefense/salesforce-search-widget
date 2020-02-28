@@ -20,11 +20,11 @@ public with sharing class SearchUnitTests {
     private static void returnZeroProducts() {
         List<String> searchTerms = new List<String>{'product'};
         String filter = null;
-        Map<String,List<StoreSearch.SearchResult>> results = StoreSearch.GetQueryResults(searchTerms, filter);
+        
+        List<StoreSearch.SearchResult> results = StoreSearch.GetQueryResults(searchTerms, filter);
 
-        List<StoreSearch.SearchResult> o = results.get('Product2');
 
-        System.assert(null != o);
-        System.assert(o.size() == 0);
+        System.assert(null != results);
+        System.assert(results.size() == 0);
     }
 }

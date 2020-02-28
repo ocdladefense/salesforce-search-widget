@@ -1,6 +1,8 @@
 <apex:component layout="none" controller="StoreSearch" id="component"> 
-
-    <!--- Three dashes for a Visualforce comment -->
+    <apex:attribute name="defaultSearchStatus" type="Boolean" description="Whether to render the search status container in this component." required="False" default="True" />
+    <apex:attribute name="defaultSearchResults" type="Boolean" description="Whether to render the search results container in this component." required="False" default="True" />
+    
+    <!--- Three dashes for a Visualforce comment --->
     
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/search.js')}" />    
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/searchManager.js')}" />    
@@ -14,33 +16,60 @@
     <apex:stylesheet value="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" html-integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" html-crossorigin="anonymous" />
     <apex:includeScript value="https://kit.fontawesome.com/358b1b3615.js" html-crossorigin="anonymous" />
     
-
-	<apex:stylesheet value="{!URLFOR($Resource.search,'/css/style.css')}" />      
-
-    <!-- <script>
-        var families = {!FamilySelect};
-    </script> -->
-
+    
+    <apex:stylesheet value="{!URLFOR($Resource.search,'/css/style.css')}" />      
+    
+    <!---
+<script>
+var families = {!FamilySelect};
+</script> 
+--->
+    
     <div id="search-widget" class="p-0 my-2">
         <div class="form-inline">
             <div class="col-4">
                 <apex:form id="search-form">
                     <apex:selectList styleClass="form-control" id="family-select" size="1" onselect="{ currentFilter=value }">
-                       <apex:selectOptions Value="{!FamilyOptions}"></apex:selectOptions> 
+                        <apex:selectOptions Value="{!FamilyOptions}"></apex:selectOptions> 
                     </apex:selectList>
                 </apex:form>
             </div>
-
+            
             <div class="col-md-4">
                 <div id="storeSearchBox" class="input-group">
-                    <input class="form-control py-2 border-right-0 border" placeholder="Search" id="searchInputBox"></input>
+                    <input class="form-control py-2 border-right-0 border" placeholder="Search" id="searchInputBox" />
                     <span class="input-group-append">
                         <div class="input-group-text bg-white"><i class="fas fa-search"></i></div>
                     </span>
                 </div>
             </div>
-
-            <!--- <input id="searchInputBox" class="form-control col-6" placeholder="Search the store" /> -->
+            
+            <!--- <input id="searchInputBox" class="form-control col-6" placeholder="Search the store" /> --->
         </div>
+        
+
+
+			<div id="search-result-area"> 
+
+				<span id="loader-icon-container"></span>
+
+
+        
+        <apex:outputPanel layout="none" rendered="{!defaultSearchStatus}">
+            <h1 id="search-status">
+                There were no search results.
+            </h1>
+        </apex:outputPanel>
+        
+        <apex:outputPanel layout="none" rendered="{!defaultSearchResults}">
+            <div id="search-results">
+                
+
+                
+            </div>
+        </apex:outputPanel>
+        
+			</div>        
+        
     </div>   
 </apex:component>

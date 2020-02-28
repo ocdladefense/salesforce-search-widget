@@ -18,6 +18,15 @@ public with sharing class SqlCondition {
         }
 
     }
+    
+    public SqlCondition(String fName, Object value) {
+    	this(fName,value,Sql.OPERATOR_EQUALS);
+    }
+    public SqlCondition(String fName, Object value, String op) {
+    	this.field = fName;
+    	this.op = null == op ? Sql.OPERATOR_EQUALS : op;
+    	this.value = (String) value;
+    }
 
     public SqlCondition(Map<String, Object> condition) {
         this.field = (String)condition.get('field');
