@@ -3,6 +3,7 @@ var SearchManagerPrototype =
 {
     doSearch:function(params, filter)
     {
+        var request;
 
         if(!(params instanceof Search)){
             search = params.search;
@@ -15,25 +16,27 @@ var SearchManagerPrototype =
 
 		this.searchHistory.push(search);
         
-        var request = new Promise(function(resolve,reject) {
-            StoreSearch.GetQueryResults(search.getParameters(), filter.getFilter(), function(result, event){
-                if (event.status){ resolve(result); }
-                else { reject(result,event); }
-            },
-            {escape: true});
-        });
-        
+        if(USE_SAMPLE_DATA){
+            request =  Promise.resolve(fetchSampleData());
+        } else
+        {
+            request = new Promise(function(resolve,reject) {
+                StoreSearch.GetQueryResults(search.getParameters(), filter.getFilter(), function(result, event){
+                    if (event.status){ resolve(result); }
+                    else { reject(result,event); }
+                },
+            
+                {escape: true});
+            });
+        }
         request.then(function(json) {
         	console.log(json);
 
             json = json || [];
 
-            var parsedResults = renderHtml(json);
-            //document.getElementById(SEARCH_RESULT_CONTAINER).innerHTML = "Search Results";
-        })
-        .then(function(json) {
-            // this.resultsHistory.push(json);
+            renderHtml(json);
         });
+        
     },
     // --- MARKED FOR DELETION
     // execute:function(searchString, filterString)

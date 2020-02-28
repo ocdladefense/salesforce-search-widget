@@ -66,16 +66,31 @@ color: #666;
     100% { transform: rotate(360deg); }
   }
 
-  #search-results a, #search-results i{
-    font-size: 25px;
-  }
-  #search-results a{
+ 
+  .product-result a{
     font-family: "Tahoma", "Geneva", sans-serif;
   }
-  #search-results i{
-    display: inline;
-    padding-right: 10px;
-  }
+
+
+  /* .product-result{
+    border: 1px solid black;
+  } */
+  .product-icon{
+    font-size: 3.8em;
+    color: #53638c;
+}
+.product-name{
+  font-size: 1.8em;
+  font-weight: bold;
+  color: black;
+}
+.product-family{
+  font-weight: bold;
+}
+.product-price{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
 
 
