@@ -2,7 +2,7 @@ public class StoreSearch
 {
     public List<SObject> products {public get;private set;}
     
-    public string JsonProducts{public get;private set;}
+    public String JsonProducts {public get;private set;}
     
     public static final SearchSettings settings = new SearchSettings();
 
@@ -10,6 +10,8 @@ public class StoreSearch
     
     public List<AggregateResult> families {get; set;}
     
+    
+    // Default constructor.
     public StoreSearch()
     {
         //string is whatever is coming from the force page 
@@ -46,73 +48,32 @@ public class StoreSearch
      * For scratch org development we need to return some sample records.
      */
     @RemoteAction
-    public static List<SearchResult> GetQueryResults(string[] searchTerms, string filter)
+    public static List<SearchResult> GetQueryResults(String[] searchTerms, String filter)
     {
-        if(filter == null) {
-            return QueryNoFilter(searchTerms);
-        } else {
-            return QueryWithFilter(searchTerms, filter);
-        }
-    }
-
-
     
-    private static List<SearchResult> QueryNoFilter (string[] searchTerms) {
-        String searchQuery;
-        
-        String filter = null;
-
         List<SObject> products;
             
-		List<SearchResult> results;
+				List<SearchResult> results;
         
         // String searchKey = String.join(searchTerms,' ');  
-
         // searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, Product2.Family FROM Product2 '+
         //     'WHERE Product2.Name LIKE \'%'+searchKey+'%\' LIMIT 100 OFFSET 0';
-
-        // Build the query using a null filter
-        QueryBuilder qb = QueryBuilder.NewFromSettings(settings.targetObject, settings.returnFields);
-        
         // new QueryBuilder(searchTerms, filter);
         
-        searchQuery = qb.Compile();
         
-        products = Database.query(searchQuery);
-        
-        if(SearchSettings.USE_SAMPLE_DATA){
-            results = getSampleResults();
-        } else {
-            results = toSearchResults(products);
-        }
-
-        return results;
-    }
-
-    private static List<SearchResult> QueryWithFilter (string[] searchTerms, string filter) {
-        String searchQuery;
-        
-        List<SObject> products;
-            
-		List<SearchResult> results;
-        
-        // String searchKey = String.join(searchTerms,' ');
-        
-        // searchQuery = 'SELECT Product2.Id, Product2.Name, Product2.Description, Product2.Family FROM Product2 '+
-        // 'WHERE Product2.Name LIKE \'%'+ searchKey +'%\' AND Product2.Family = \'' + filter + '\' LIMIT 100 OFFSET 0';
-
+        // Build the query using a null filter
         QueryBuilder qb = QueryBuilder.NewFromSettings(settings.targetObject, settings.returnFields);
-        
-        searchQuery = qb.compile();
-        
-        if(SearchSettings.USE_SAMPLE_DATA){
-            results = getSampleResults();
-        } else {
-            results = toSearchResults(products);
-        }
+        qb.orderBy('Name');
+        qb.setLimit(100);
 
-        return results;
+        
+        
+        products = Database.query(qb.Compile());
+        
+
+        return SearchSettings.USE_SAMPLE_DATA ? getSampleResults() : toSearchResults(products);
     }
+
     
     /**
      * Perform any standardization required in the results.

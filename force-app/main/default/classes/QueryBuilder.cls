@@ -110,6 +110,10 @@ public with sharing class QueryBuilder {
             // query += 'WHERE ' + BuildWhere();
         }
         
+        for(String[] opt : options) {
+        	temp.add(String.join(opt, Sql.TOKEN_SEPERATOR));
+        }
+        
         query = String.join(temp, Sql.TOKEN_SEPERATOR);
 
         system.debug(query);
@@ -117,6 +121,12 @@ public with sharing class QueryBuilder {
         return query;
     }
     
+    
+    public QueryBuilder setLimit(Integer theLimit) {
+    	this.options.add(new String[]{'LIMIT',String.valueOf(theLimit)});
+    	
+    	return this;
+    }
     public QueryBuilder orderBy(String fname) {
     	return this.orderBy(fname,Sql.ORDER_BY_ASC);
     }
