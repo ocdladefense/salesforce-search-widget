@@ -1,7 +1,7 @@
 <apex:component layout="none" controller="StoreSearch" id="component"> 
     <apex:attribute name="defaultSearchStatus" type="Boolean" description="Whether to render the search status container in this component." required="False" default="True" />
     <apex:attribute name="defaultSearchResults" type="Boolean" description="Whether to render the search results container in this component." required="False" default="True" />
-    
+    <apex:attribute name="showFilters" type="Boolean" description="Whether to show filter dropdown." required="False" default="True" />
     <!--- Three dashes for a Visualforce comment --->
     
     <apex:includeScript value="{!URLFOR($Resource.search,'/js/search.js')}" />    
@@ -27,14 +27,15 @@ var families = {!FamilySelect};
     
     <div id="search-widget" class="p-0 my-2">
         <div class="form-inline">
-            <div class="col-4">
-                <apex:form id="search-form">
-                    <apex:selectList styleClass="form-control" id="family-select" size="1" onselect="{ currentFilter=value }">
-                        <apex:selectOptions Value="{!FamilyOptions}"></apex:selectOptions> 
-                    </apex:selectList>
-                </apex:form>
-            </div>
-            
+            <apex:outputPanel layout="none" rendered="{!showFilters}">
+                <div class="col-4">
+                    <apex:form id="search-form">
+                        <apex:selectList styleClass="form-control" id="family-select" size="1" onselect="{ currentFilter=value }">
+                            <apex:selectOptions Value="{!FamilyOptions}"></apex:selectOptions> 
+                        </apex:selectList>
+                    </apex:form>
+                </div>
+            </apex:outputPanel>
             <div class="col-md-4">
                 <div id="storeSearchBox" class="input-group">
                     <input class="form-control py-2 border-right-0 border" placeholder="Search" id="searchInputBox" />
@@ -51,13 +52,12 @@ var families = {!FamilySelect};
 
 			<div id="search-result-area"> 
 
-				<span id="loader-icon-container"></span>
+				<div id="loader-icon-container"></div>
 
 
         
         <apex:outputPanel layout="none" rendered="{!defaultSearchStatus}">
             <h1 id="search-status">
-                There were no search results.
             </h1>
         </apex:outputPanel>
         

@@ -76,21 +76,34 @@ color: #666;
     border: 1px solid black;
   } */
   .product-icon{
-    font-size: 3.8em;
+    font-size: 2rem;
     color: #53638c;
 }
 .product-name{
   font-size: 1.8em;
   font-weight: bold;
-  color: black;
+  color: #4b4b4b;
 }
+
+.product-name:hover{
+  text-decoration: none;
+}
+
 .product-family{
   font-weight: bold;
+  color: #4b4b4b;
+
 }
 .product-price{
   font-size: 1.5rem;
   font-weight: bold;
+  color: #4b4b4b;
 }
+.product-result:hover{
+  color: #53638c !important; 
+}
+
+
 
 
 
