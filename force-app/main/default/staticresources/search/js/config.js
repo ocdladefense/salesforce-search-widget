@@ -17,7 +17,7 @@ var CUSTOM_RESULT_RENDERER = function(res) {
 	return prodHtml;
 };
 
-function renderSearchLabel(){
+function noSearchResults(){
 	var searchResultLabel = document.getElementById(RESULT_CONTAINER);
 
 	searchResultLabel.innerHTML = NO_SEARCH_RESULT_STRING;
