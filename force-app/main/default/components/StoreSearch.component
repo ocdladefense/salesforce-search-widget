@@ -55,13 +55,13 @@ var families = {!FamilySelect};
 
 
         
-        <apex:outputPanel rendered="{!defaultSearchStatus}">
+        <apex:outputPanel layout="none" rendered="{!defaultSearchStatus}">
             <h1 id="search-status">
                 There were no search results.
             </h1>
         </apex:outputPanel>
         
-        <apex:outputPanel rendered="{!defaultSearchResults}">
+        <apex:outputPanel layout="none" rendered="{!defaultSearchResults}">
             <div id="search-results">
                 
 
