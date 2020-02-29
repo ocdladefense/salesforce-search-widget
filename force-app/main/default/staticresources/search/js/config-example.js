@@ -52,81 +52,46 @@ function removeLoader(){
 }
 
 function getIcon(res){
-    return getFamilies()[res.Family];
-
-	switch(res.Family){
-		case "Publications":
-			family = "fas fa-book";
-			break;
-		case "Event Ticket":
-			family = "fa fa-ticket";
-			break;
-		case "Written Material Orders":
-			family = "fas fa-book";
-			break;
-		case "CLE":
-			family = "fas fa-book";
-			break;
-		case "Raffles":
-			family = "fa fa-ticket";
-			break;
-		case "Memberships":
-			family = "fa fa-id-card";
-			break;
-		case "Capital Defenders Memberships":
-			family = "fa fa-id-card";
-			break;	
-		case "Donation":
-			family = "fas fa-hand-holding-usd";
-			break;	
-		case "Donation Fund":
-			family = "fas fa-hand-holding-usd";
-			break;	
-		default:
-			family = "fas fa-angle-right";
-	}
-
-	//iconHtml = "<i class='"+family+"'></i>";
-
-	return family;
+    return !res.Family ? "fas fa-angle-right" :  getProductInfo()[res.Family][1];
 }
 
-{/* <i class="fas fa-download"></i> */}
+/* <i class="fas fa-download"></i> */
 
 
-function getFamilies(){
-    var families = {
-        "Publications":"fas fa-book",
-        "Event Ticket":"fa fa-ticket",
-        "Written Material Orders":"fas fa-book",
-        "CLE":"fas fa-book",
-        "Raffles":"fa fa-ticket",
-        "Capital Defenders Memberships":"fa fa-id-card",
-        "Donation":"fas fa-hand-holding-usd",
-        "Donation Fund":"fas fa-hand-holding-usd",
-        "none":"fas fa-arrow-alt-circle-right",
+function getProductInfo(){
+    var groups = {
+        "Publications":["DUII Trial Notebook","fas fa-book"],
+        "Event Ticket":["2020 DUII Defense Member Lawyer","fa fa-ticket"],
+        "Written Material Orders":["2020 DUII Defense - Written Materials","fas fa-book"],
+        "CLE":["2009 Defending DUII Cases - CLE materials","fas fa-book"],
+        "Raffles":["2020 Annual Conference - Hawaii Vacation Raffle","fa fa-ticket"],
+        "Memberships":["Capital Defenders Memberships","fa fa-id-card"],
+        "Donation":["Building Fund Donation","fas fa-hand-holding-usd"],
+        "none":["Product w/o Family","fas fa-arrow-alt-circle-right"]
     };
 
-    return families;
+    return groups;
 }
 
 function fetchSampleData(){
     var allSamples = [];
-    var sample =
-        {
-            Id: "999",
-            Name: "DUII Trial Notebook",
-            Family: "Publications",
-            Price: 350.00,
-            Description: "lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut...",
-            IsActive: true
-        }
-    var families = getFamilies()
+    var sample = {
+				Id: "999",
+				Name: "DUII Trial Notebook",
+				Family: "Publications",
+				Price: 350.00,
+				Description: "lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut...",
+				IsActive: true
+		};
 
-    for(var family in getFamilies()){
+		
+		var samples = getProductInfo();
+		
+    for(var fam in samples){
         var prod = JSON.parse(JSON.stringify(sample));
-
-        prod.Family = family;
+				var cp = samples[fam];
+        prod.Family = fam;
+        prod.Name = cp[0];
         allSamples.push(prod);
     }
 
